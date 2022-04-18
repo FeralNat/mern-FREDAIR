@@ -7,7 +7,9 @@ const {
     deleteFlight,
     } = require('../controllers/flightController')
 
-router.route('/').get(getFlights).post(setFlight)
-router.route('/:id').delete(deleteFlight).put(updateFlight)
+const { protect } = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getFlights).post(protect, setFlight)
+router.route('/:id').delete(protect, deleteFlight).put(protect, updateFlight)
 
 module.exports = router
